@@ -1,3 +1,9 @@
+# 이미지 파일
 open/
 open_mini/
+
+# 모델 파일
+*.h5
+
 __pycache__/
+9_nineth/
