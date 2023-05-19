@@ -1,14 +1,14 @@
 import os
 from tensorflow.keras.utils import to_categorical
 
-# ======== 학습 시킬 모든 이미지 파일들의 경로에 대한 리스트와 라벨 데이터 리스트 생성하기 ========
+# ======== 학습용 이미지 경로와 라벨에 대한 각각의 리스트 생성하기 ========
 
 # c:\Users\UserK\Desktop\hansol_J\jiwon_work\..\..\open\train
 TRAIN_FOLDER_PATH = os.path.join(os.getcwd(), os.pardir, os.pardir, 'open', 'train')
 # TRAIN_FOLDER_PATH = '/content/train/'
 # print('TRAIN_FOLDER_PATH : ', TRAIN_FOLDER_PATH)
 
-def get_train_image_paths_and_labels_fn():
+def get_train_image_paths_and_encoding_labels_fn():
 
     defect_types = os.listdir(TRAIN_FOLDER_PATH)
     # print('defect_types :', defect_types)
@@ -54,6 +54,6 @@ def get_train_image_paths_and_labels_fn():
 # print('train_image_paths: ', train_image_paths)
 
 # [ 하자 유형에 대한 폴더명, ... ]
-# print('labels :', labels)
+# print('encoding_labels :', encoding_labels)
 
-# =============================================================================================
+# =====================================================================

@@ -1,10 +1,8 @@
 from tensorflow.keras.preprocessing import image as keras_image
-import tensorflow as tf
-import numpy as np
-
-# 객체 순회 및 진행률 표시 용도
-# pip3 install tqdm
+from tensorflow.image import per_image_standardization
+from tensorflow.image import resize
 from tqdm import tqdm
+import numpy as np
 
 def get_tensor_through_imgs_fn(img_paths, resized_height, resized_width, fig):
 
@@ -14,23 +12,26 @@ def get_tensor_through_imgs_fn(img_paths, resized_height, resized_width, fig):
     # 3457개의 이미지 데이터
     for img_path in tqdm(img_paths):
 
+        # 1
         img = keras_image.load_img(img_path)
 
         # <PIL.PngImagePlugin.PngImageFile image mode=RGB size=629x658 at 0x1BA13D4F790>
         # print('img :', img)
 
-        # 원본 이미지
+        # 2
         x = keras_image.img_to_array(img)
         # print('x :', x.shape)
 
-        # 정규화된 이미지
-        standardization_x = tf.image.per_image_standardization(x)
+        # 3
+        # 평균이 0이고 분산이 1이 되도록 각 이미지의 크기를 선형으로 조정합니다
+        standardization_x = per_image_standardization(x)
 
-        # 크기가 조정된 이미지
-        resized_x = tf.image.resize(
+        # 4
+        resized_x = resize(
             standardization_x, [resized_height, resized_width])
         # print('reszied_x: ', resized_x)
 
+        # 5
         expanded_x = np.expand_dims(resized_x, axis=0)
         # print('new_x :', expanded_x.shape)
 
@@ -55,4 +56,5 @@ def get_tensor_through_imgs_fn(img_paths, resized_height, resized_width, fig):
 
         index += 1
 
+    # 6
     return np.vstack(list_of_tensors)
