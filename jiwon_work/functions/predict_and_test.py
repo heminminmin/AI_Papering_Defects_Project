@@ -42,13 +42,13 @@ def get_predict_result_fn(RESIZED_WIDTH, RESIZED_HEIGHT, model):
     print('predicted_result.shape :', predicted_result.shape)
     return predicted_result
 
-def get_test_csv_fn(predict_result):
+def get_test_csv_fn(predicted_result):
 
     # 추후에 라벨이 추가될 경우 등 확장성 및 모델의 안정성을 고려하여 총 19가지의 하자 유형의 순서가 변경되지 않도록 직접적으로 리스트 생성
     DEFECT_TYPE_NAMES = ["가구수정", "걸레받이수정", "곰팡이", "꼬임", "녹오염", "들뜸", "면불량", "몰딩수정", "반점", "석고수정",
                         "오염", "오타공", "울음", "이음부불량", "창틀,문틀수정", "터짐", "틈새과다", "피스", "훼손"]
 
-    predicted_index_list = np.argmax(predict_result, axis=1)
+    predicted_index_list = np.argmax(predicted_result, axis=1)
     # print('predicted_index_list :', predicted_index_list)
 
     predicted_labels = []
