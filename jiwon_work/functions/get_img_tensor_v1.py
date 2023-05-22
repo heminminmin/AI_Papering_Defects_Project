@@ -1,6 +1,7 @@
-from tensorflow.keras.preprocessing import image as keras_image
-from tensorflow.image import per_image_standardization
-from tensorflow.image import resize
+from tensorflow.image import per_image_standardization as tf_per_image_standardization
+from tensorflow.keras.preprocessing.image import img_to_array as keras_img_to_array
+from tensorflow.keras.preprocessing.image import load_img as keras_load_img
+from tensorflow.image import resize as tf_resize
 from tqdm import tqdm
 import numpy as np
 
@@ -13,21 +14,21 @@ def get_tensor_through_imgs_fn(img_paths, resized_height, resized_width, fig):
     for img_path in tqdm(img_paths):
 
         # 1
-        img = keras_image.load_img(img_path)
+        img = keras_load_img(img_path)
 
         # <PIL.PngImagePlugin.PngImageFile image mode=RGB size=629x658 at 0x1BA13D4F790>
         # print('img :', img)
 
         # 2
-        x = keras_image.img_to_array(img)
+        x = keras_img_to_array(img)
         # print('x :', x.shape)
 
         # 3
         # 평균이 0이고 분산이 1이 되도록 각 이미지의 크기를 선형으로 조정합니다
-        standardization_x = per_image_standardization(x)
+        standardization_x = tf_per_image_standardization(x)
 
         # 4
-        resized_x = resize(
+        resized_x = tf_resize(
             standardization_x, [resized_height, resized_width])
         # print('reszied_x: ', resized_x)
 

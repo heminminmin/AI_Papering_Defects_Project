@@ -1,11 +1,12 @@
+from tensorflow.keras.utils import to_categorical as keras_to_categorical
 import os
-from tensorflow.keras.utils import to_categorical
 
 # ======== 학습용 이미지 경로와 라벨에 대한 각각의 리스트 생성하기 ========
 
 # c:\Users\UserK\Desktop\hansol_J\jiwon_work\..\..\open\train
-TRAIN_FOLDER_PATH = os.path.join(os.getcwd(), os.pardir, os.pardir, 'open', 'train')
-# TRAIN_FOLDER_PATH = '/content/train/'
+# TRAIN_FOLDER_PATH = os.path.join(os.getcwd(), os.pardir, os.pardir, 'open', 'train')
+TRAIN_FOLDER_PATH = '/content/train/'
+
 # print('TRAIN_FOLDER_PATH : ', TRAIN_FOLDER_PATH)
 
 def get_train_image_paths_and_encoding_labels_fn():
@@ -43,7 +44,7 @@ def get_train_image_paths_and_encoding_labels_fn():
     # print('normalized_labels :', normalized_labels)
 
     # 정수형 클래스의 레이블을 이진 클래스의 원핫 인코딩 벡터로 변환
-    encoding_labels = to_categorical(normalized_labels, defect_type_count)
+    encoding_labels = keras_to_categorical(normalized_labels, defect_type_count)
     print('encoding_labels.shape :', encoding_labels.shape)
 
     # =============================================================
